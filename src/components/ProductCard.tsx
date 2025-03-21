@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '@/context/CartContext';
 import { motion } from 'framer-motion';
@@ -49,7 +49,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            addToCart(product);
+            // Instead of adding to cart directly, redirect to product detail page
+            // for selecting variants and adding notes
+            window.location.href = `/product/${product.id}`;
           }}
           className="bg-pink-600 hover:bg-pink-700 text-white rounded-full w-10 h-10 flex items-center justify-center"
         >

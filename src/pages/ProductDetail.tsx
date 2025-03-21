@@ -6,6 +6,37 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingBag, Minus, Plus, ArrowLeft } from 'lucide-react';
 import { FeaturedProducts } from '@/components/FeaturedProducts';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormLabel, 
+  FormMessage 
+} from '@/components/ui/form';
+import { useForm } from 'react-hook-form';
+
+// Types for the form
+interface ProductOrderForm {
+  variant: string;
+  notes: string;
+}
+
+// Mock data for product variants
+const productVariants = {
+  "1": ["Classic", "Vegan", "Gluten-Free", "Sugar-Free"],
+  "2": ["Dark Chocolate", "Milk Chocolate", "White Chocolate", "Triple Chocolate"],
+  "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
+  "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"]
+};
 
 // Mock data for a single product
 const mockProducts: Record<string, Product> = {
@@ -78,10 +109,29 @@ const ProductDetail: React.FC = () => {
   const [isWished, setIsWished] = useState(false);
   const { addToCart } = useCart();
   
+  // Form definition
+  const form = useForm<ProductOrderForm>({
+    defaultValues: {
+      variant: '',
+      notes: ''
+    }
+  });
+  
+  // Get available variants based on the product ID
+  const availableVariants = productId && productVariants[productId as keyof typeof productVariants] 
+    ? productVariants[productId as keyof typeof productVariants] 
+    : [];
+  
   useEffect(() => {
     // In a real app, this would be an API call
     if (productId && mockProducts[productId]) {
       setProduct(mockProducts[productId]);
+      
+      // Reset the form when product changes
+      form.reset({
+        variant: availableVariants.length > 0 ? availableVariants[0] : '',
+        notes: ''
+      });
     }
     
     // Reset state when product changes
@@ -90,7 +140,7 @@ const ProductDetail: React.FC = () => {
     
     // Scroll to top on new product
     window.scrollTo(0, 0);
-  }, [productId]);
+  }, [productId, form, availableVariants]);
   
   if (!product) {
     return (
@@ -127,7 +177,8 @@ const ProductDetail: React.FC = () => {
   };
   
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    const formValues = form.getValues();
+    addToCart(product, quantity, formValues.variant, formValues.notes);
   };
   
   return (
@@ -185,7 +236,59 @@ const ProductDetail: React.FC = () => {
               </p>
             </div>
             
-            <div className="mb-8">
+            <Form {...form}>
+              <form className="space-y-6">
+                {availableVariants.length > 0 && (
+                  <FormField
+                    control={form.control}
+                    name="variant"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-lg font-medium text-gray-900 dark:text-white">Variant</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value || availableVariants[0]}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="border-gray-300 dark:border-gray-700">
+                              <SelectValue placeholder="Select a variant" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-white dark:bg-gray-900">
+                            {availableVariants.map((variant) => (
+                              <SelectItem key={variant} value={variant}>
+                                {variant}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                
+                <FormField
+                  control={form.control}
+                  name="notes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-lg font-medium text-gray-900 dark:text-white">Special Instructions</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Add any special instructions or requests..."
+                          className="border-gray-300 dark:border-gray-700 resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </Form>
+            
+            <div className="my-8">
               <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 Quantity
               </h2>

@@ -14,11 +14,13 @@ export interface Product {
 interface CartItem {
   product: Product;
   quantity: number;
+  variant?: string;
+  notes?: string;
 }
 
 interface CartContextProps {
   cartItems: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
+  addToCart: (product: Product, quantity?: number, variant?: string, notes?: string) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
@@ -46,21 +48,28 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
   
-  const addToCart = (product: Product, quantity = 1) => {
+  const addToCart = (product: Product, quantity = 1, variant?: string, notes?: string) => {
     setCartItems(prev => {
-      const existingItem = prev.find(item => item.product.id === product.id);
+      // Check if the exact same product with the same variant exists
+      const existingItemIndex = prev.findIndex(item => 
+        item.product.id === product.id && 
+        item.variant === variant
+      );
       
-      if (existingItem) {
-        const updatedItems = prev.map(item => 
-          item.product.id === product.id 
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
+      if (existingItemIndex >= 0) {
+        // Update existing item
+        const updatedItems = [...prev];
+        updatedItems[existingItemIndex] = {
+          ...updatedItems[existingItemIndex],
+          quantity: updatedItems[existingItemIndex].quantity + quantity,
+          notes: notes || updatedItems[existingItemIndex].notes
+        };
         toast.success(`Updated ${product.name} quantity in cart`);
         return updatedItems;
       } else {
+        // Add as new item
         toast.success(`Added ${product.name} to cart`);
-        return [...prev, { product, quantity }];
+        return [...prev, { product, quantity, variant, notes }];
       }
     });
   };
