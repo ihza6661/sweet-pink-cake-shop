@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
@@ -191,7 +190,6 @@ const Contact = () => {
             </div>
             
             <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-              {/* This would typically be a Google Maps iframe */}
               <div className="w-full h-full bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center">
                 <p className="text-pink-600 dark:text-pink-400 text-center p-4">
                   Map would be displayed here <br />

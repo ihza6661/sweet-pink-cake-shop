@@ -12,12 +12,12 @@ const About = () => {
         className="max-w-4xl mx-auto"
       >
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-pink-600 dark:text-pink-400 mb-8">
-          About Sweet Delights
+          About Yulita Cakes
         </h1>
         
         <div className="prose prose-pink dark:prose-invert lg:prose-lg max-w-none">
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
-            Sweet Delights has been creating artisanal cakes and desserts since 2010. 
+            Yulita Cakes has been creating artisanal cakes and desserts since 2010. 
             What started as a small family passion has grown into a beloved bakery 
             known for quality, creativity, and delicious flavors.
           </p>
@@ -47,7 +47,7 @@ const About = () => {
           </h2>
           
           <p className="mb-4">
-            Sweet Delights began in the kitchen of our founder, Emma Thompson. 
+            Yulita Cakes began in the kitchen of our founder, Emma Thompson. 
             What started as baking for friends and family quickly grew as word 
             spread about her incredible cakes. Within a year, Emma opened our 
             first small bakery.

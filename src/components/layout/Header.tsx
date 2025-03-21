@@ -46,7 +46,7 @@ export const Header: React.FC = () => {
           to="/" 
           className="text-2xl font-serif font-bold text-pink-600 dark:text-pink-400"
         >
-          Sweet Delights
+          Yulita Cakes
         </Link>
         
         {/* Desktop Navigation */}

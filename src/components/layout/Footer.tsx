@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
@@ -10,7 +9,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="text-2xl font-serif font-bold text-pink-600 dark:text-pink-400">
-              Sweet Delights
+              Yulita Cakes
             </Link>
             <p className="mt-4 text-gray-600 dark:text-gray-400">
               Delicious, handcrafted cakes for every occasion. Made with love and the finest ingredients.
@@ -70,7 +69,7 @@ export const Footer: React.FC = () => {
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-500 dark:text-gray-400 text-sm">
-          <p>© {new Date().getFullYear()} Sweet Delights. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Yulita Cakes. All rights reserved.</p>
         </div>
       </div>
     </footer>
