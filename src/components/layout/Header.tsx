@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useCart } from '@/context/CartContext';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -87,6 +87,13 @@ export const Header: React.FC = () => {
             </Button>
           </Link>
           
+          <Link to="/login">
+            <Button variant="outline" size="sm" className="hidden md:flex items-center gap-1">
+              <LogIn className="w-4 h-4" />
+              Login
+            </Button>
+          </Link>
+          
           <Button 
             variant="ghost"
             size="icon"
@@ -122,6 +129,12 @@ export const Header: React.FC = () => {
                   {link.name}
                 </Link>
               ))}
+              <Link
+                to="/login"
+                className="text-lg font-medium transition-colors text-gray-800 dark:text-gray-200"
+              >
+                Login
+              </Link>
             </nav>
           </motion.div>
         )}
