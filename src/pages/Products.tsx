@@ -130,6 +130,12 @@ const Products: React.FC = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [sortBy, setSortBy] = useState('featured');
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setIsFilterOpen(false);
+    }
+  }, [selectedCategory]);
   
   useEffect(() => {
     let filtered = [...allProducts];
@@ -243,76 +249,44 @@ const Products: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          <motion.div 
-            className={`md:col-span-3 md:block ${isFilterOpen ? 'block' : 'hidden'} bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm sticky top-24 h-fit`}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Filters</h3>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => setIsFilterOpen(false)}
-                className="md:hidden"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Categories</h4>
-              <div className="space-y-2">
-                {categories.map(category => (
-                  <label key={category} className="flex items-center">
-                    <input
-                      type="radio"
-                      name="category"
-                      checked={selectedCategory === category}
-                      onChange={() => setSelectedCategory(category)}
-                      className="h-4 w-4 text-pink-600 focus:ring-pink-500"
-                    />
-                    <span className={`ml-2 text-sm ${selectedCategory === category ? 'text-pink-600 dark:text-pink-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
-                      {category}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Price Range</h4>
-              <div className="mt-4">
-                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="5"
-                  value={priceRange[1]}
-                  onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-md appearance-none cursor-pointer"
-                />
-              </div>
-            </div>
-            
-            <Button 
-              onClick={() => {
-                setSelectedCategory('All');
-                setPriceRange([0, 100]);
-                setSearchTerm('');
-                setSortBy('featured');
-              }}
-              variant="outline"
-              className="w-full"
-            >
-              Reset Filters
-            </Button>
-          </motion.div>
+        <motion.div 
+  className={`md:col-span-3 md:block ${isFilterOpen ? 'block' : 'hidden'} bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm sticky top-24 h-fit`}
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.3 }}
+>
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Filters</h3>
+    <Button 
+      variant="ghost" 
+      size="sm" 
+      onClick={() => setIsFilterOpen(false)}
+      className="md:hidden"
+    >
+      <X className="h-4 w-4" />
+    </Button>
+  </div>
+  
+  <div className="mb-6">
+    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Categories</h4>
+    <div className="space-y-2">
+      {categories.map(category => (
+        <label key={category} className="flex items-center">
+          <input
+            type="radio"
+            name="category"
+            checked={selectedCategory === category}
+            onChange={() => setSelectedCategory(category)}
+            className="h-4 w-4 text-pink-600 focus:ring-pink-500"
+          />
+          <span className={`ml-2 text-sm ${selectedCategory === category ? 'text-pink-600 dark:text-pink-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
+            {category}
+          </span>
+        </label>
+      ))}
+    </div>
+  </div>
+</motion.div>
           
           <div className="md:col-span-9">
             {filteredProducts.length > 0 ? (

@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/about">
-                <Button variant="outline" className="w-full sm:w-auto">
+                <Button variant="outline" className="w-full sm:w-auto bg-gray-200 dark:bg-gray-800 dark:hover:text-gray-300">
                   Our Story
                 </Button>
               </Link>
