@@ -8,7 +8,6 @@ import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, ShoppingBag } from 'lucid
 
 const Cart: React.FC = () => {
   const { cartItems, updateQuantity, removeFromCart, clearCart, subtotal } = useCart();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
   
   const handleUpdateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity < 1) return;
@@ -94,6 +93,16 @@ const Cart: React.FC = () => {
                           >
                             {item.product.name}
                           </Link>
+                          {item.variant && (
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              Variant: {item.variant}
+                            </p>
+                          )}
+                          {item.notes && (
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              Notes: {item.notes}
+                            </p>
+                          )}
                           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                             ${item.product.price.toFixed(2)}
                           </p>
@@ -164,13 +173,14 @@ const Cart: React.FC = () => {
                 </div>
                 
                 <div className="p-6">
-                  <Button 
-                    onClick={() => setIsCheckingOut(true)}
-                    disabled={isCheckingOut}
-                    className="w-full bg-pink-600 hover:bg-pink-700 text-white mb-4"
-                  >
-                    {isCheckingOut ? 'Processing...' : 'Checkout'}
-                  </Button>
+                  <Link to="/place-order">
+                    <Button 
+                      className="w-full bg-pink-600 hover:bg-pink-700 text-white mb-4"
+                      disabled={cartItems.length === 0}
+                    >
+                      Proceed to Checkout
+                    </Button>
+                  </Link>
                   
                   <Link to="/products">
                     <Button 
