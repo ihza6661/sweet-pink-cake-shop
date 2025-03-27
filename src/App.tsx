@@ -21,6 +21,8 @@ import Register from "./pages/Register";
 import FAQ from "./pages/FAQ";
 import Delivery from "./pages/Delivery";
 import NotFound from "./pages/NotFound";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import GuestRoute from "./components/routing/GuestRoute";
 
 const queryClient = new QueryClient();
 
@@ -37,18 +39,28 @@ const App = () => (
                 <Header />
                 <main className="flex-grow">
                   <Routes>
+                    {/* Public routes */}
                     <Route path="/" element={<Index />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/product/:productId" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/place-order" element={<PlaceOrder />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/delivery" element={<Delivery />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+                    {/* Guest routes (accessible only when NOT logged in) */}
+                    <Route element={<GuestRoute />}>
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                    </Route>
+
+                    {/* Protected routes (accessible only when logged in) */}
+                    <Route element={<PrivateRoute />}>
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/place-order" element={<PlaceOrder />} />
+                    </Route>
+                    
+                    {/* Catch-all route */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

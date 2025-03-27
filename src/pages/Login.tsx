@@ -1,12 +1,13 @@
 
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { LogIn, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +15,10 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
+  const showLoginAlert = location.state?.showLoginAlert;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ const Login = () => {
     try {
       const success = await login(email, password);
       if (success) {
-        navigate('/');
+        navigate(from, { replace: true });
       }
     } finally {
       setIsSubmitting(false);
@@ -39,6 +44,13 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {showLoginAlert && (
+            <Alert className="mb-4 border-pink-600 text-pink-600 bg-pink-50 dark:bg-pink-900/20 dark:text-pink-400">
+              <AlertDescription>
+                You need to be logged in to access this page.
+              </AlertDescription>
+            </Alert>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
