@@ -2,7 +2,7 @@
 import React from 'react';
 import { Hero } from '@/components/Hero';
 import { FeaturedProducts } from '@/components/FeaturedProducts';
-import { Product } from '@/context/CartContext';
+import { Product } from '@/models/Product';
 import { motion } from 'framer-motion';
 import { Cake, Gift, Clock, Award } from 'lucide-react';
 

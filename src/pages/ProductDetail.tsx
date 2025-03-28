@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useCart, Product } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
+import { Product } from '@/models/Product';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingBag, Minus, Plus, ArrowLeft } from 'lucide-react';
