@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { ProductCard } from '@/components/ProductCard';
-import { Product } from '@/context/CartContext';
+import { Product } from '@/models/Product';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
