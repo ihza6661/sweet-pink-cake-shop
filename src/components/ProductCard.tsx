@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '@/context/CartContext';
 import { motion } from 'framer-motion';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 

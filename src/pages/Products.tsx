@@ -10,10 +10,10 @@ import { Button } from '@/components/ui/button';
 const allProducts: Product[] = [
   {
     id: 1,
-    name: "Strawberry Delight",
+    name: "Strawberry Cheesecake",
     description: "Light vanilla sponge with fresh strawberry filling and cream cheese frosting.",
     price: 32.99,
-    image: "/placeholder.svg",
+    image: "/products/Strawberry-Cheesecake.jpg",
     category: "Bestseller"
   },
   {

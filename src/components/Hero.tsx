@@ -22,7 +22,7 @@ export const Hero: React.FC = () => {
               Artisanal Cakes for <span className="text-pink-600 dark:text-pink-400">Special Moments</span>
             </h1>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto md:mx-0">
-              Indulge in our handcrafted cakes made with premium ingredients. Perfect for birthdays, weddings, and all your celebrations.
+            Nikmati kue buatan tangan kami yang dibuat dengan bahan-bahan premium. Sempurna untuk ulang tahun, pernikahan, dan semua perayaan Anda.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link to="/products">
