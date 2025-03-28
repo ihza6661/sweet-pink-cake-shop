@@ -13,46 +13,64 @@ import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import PlaceOrder from "./pages/PlaceOrder";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import FAQ from "./pages/FAQ";
+import Delivery from "./pages/Delivery";
 import NotFound from "./pages/NotFound";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import GuestRoute from "./components/routing/GuestRoute";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <ThemeProvider>
-        <AuthProvider>
-          <CartProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+    <BrowserRouter>
+      <TooltipProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Toaster />
+              <Sonner />
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-grow">
                   <Routes>
+                    {/* Public routes */}
                     <Route path="/" element={<Index />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/product/:productId" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/delivery" element={<Delivery />} />
+
+                    {/* Guest routes (accessible only when NOT logged in) */}
+                    <Route element={<GuestRoute />}>
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                    </Route>
+
+                    {/* Protected routes (accessible only when logged in) */}
+                    <Route element={<PrivateRoute />}>
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/place-order" element={<PlaceOrder />} />
+                    </Route>
+                    
+                    {/* Catch-all route */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
                 <Footer />
               </div>
-            </BrowserRouter>
-          </CartProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </TooltipProvider>
+            </CartProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </TooltipProvider>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 

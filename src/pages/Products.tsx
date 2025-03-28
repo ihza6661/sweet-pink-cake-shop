@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { ProductCard } from '@/components/ProductCard';
-import { Product } from '@/context/CartContext';
+import { Product } from '@/models/Product';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Filter, X } from 'lucide-react';

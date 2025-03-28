@@ -1,15 +1,6 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
-
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { Product } from '@/models/Product';
 
 interface CartItem {
   product: Product;
@@ -50,14 +41,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
   const addToCart = (product: Product, quantity = 1, variant?: string, notes?: string) => {
     setCartItems(prev => {
-      // Check if the exact same product with the same variant exists
       const existingItemIndex = prev.findIndex(item => 
         item.product.id === product.id && 
         item.variant === variant
       );
       
       if (existingItemIndex >= 0) {
-        // Update existing item
         const updatedItems = [...prev];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
@@ -67,7 +56,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast.success(`Updated ${product.name} quantity in cart`);
         return updatedItems;
       } else {
-        // Add as new item
         toast.success(`Added ${product.name} to cart`);
         return [...prev, { product, quantity, variant, notes }];
       }

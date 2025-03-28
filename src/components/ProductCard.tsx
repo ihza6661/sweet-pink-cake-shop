@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Product } from '@/context/CartContext';
+import { Product } from '@/models/Product';
 import { motion } from 'framer-motion';
 import { ShoppingBag } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
