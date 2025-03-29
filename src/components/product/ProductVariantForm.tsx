@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Minus, Plus, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/models/Product';
@@ -31,11 +31,13 @@ interface ProductOrderForm {
 interface ProductVariantFormProps {
   product: Product;
   availableVariants: string[];
+  onVariantChange?: (variant: string) => void;
 }
 
 export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({ 
   product, 
-  availableVariants 
+  availableVariants,
+  onVariantChange
 }) => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -47,6 +49,13 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
       notes: ''
     }
   });
+  
+  // Call onVariantChange when the variant changes
+  useEffect(() => {
+    if (availableVariants.length > 0 && onVariantChange) {
+      onVariantChange(form.getValues().variant);
+    }
+  }, [form.getValues().variant, onVariantChange, availableVariants]);
   
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -63,6 +72,12 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
     addToCart(product, quantity, formValues.variant, formValues.notes);
   };
   
+  const handleVariantChange = (variant: string) => {
+    if (onVariantChange) {
+      onVariantChange(variant);
+    }
+  };
+  
   return (
     <div>
       <Form {...form}>
@@ -75,7 +90,10 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
                 <FormItem>
                   <FormLabel className="text-lg font-medium text-gray-900 dark:text-white">Variant</FormLabel>
                   <Select 
-                    onValueChange={field.onChange} 
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      handleVariantChange(value);
+                    }} 
                     defaultValue={field.value || availableVariants[0]}
                   >
                     <FormControl>

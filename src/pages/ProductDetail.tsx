@@ -20,6 +20,16 @@ const productVariants = {
   "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"]
 };
 
+// Variant image mapping for product ID 1
+const variantImageMapping = {
+  "1": {
+    "Regular Round": "/products/Strawberry-Cheesecake.jpg",
+    "Large Rectangle": "/products/Strawberry Cheesecake-Large.webp",
+    "Superior Rectangle": "/products/Strawberry Cheesecake-Large.webp",
+    "Small Rectangle": "/products/Strawberry Cheesecake-small.webp"
+  }
+};
+
 // Get related products
 const getRelatedProducts = (currentProductId: number): Product[] => {
   return allProducts
@@ -30,6 +40,8 @@ const getRelatedProducts = (currentProductId: number): Product[] => {
 const ProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<Product | null>(null);
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
+  const [currentImage, setCurrentImage] = useState<string>("");
   
   // Get available variants based on the product ID
   const availableVariants = productId && productVariants[productId as keyof typeof productVariants] 
@@ -41,11 +53,35 @@ const ProductDetail: React.FC = () => {
     if (productId) {
       const foundProduct = allProducts.find(p => p.id === Number(productId));
       setProduct(foundProduct || null);
+      
+      // Set initial variant
+      if (foundProduct && availableVariants.length > 0) {
+        setSelectedVariant(availableVariants[0]);
+        
+        // Set initial image - if variant images exist for this product, use the first variant's image
+        if (variantImageMapping[productId as keyof typeof variantImageMapping]) {
+          const images = variantImageMapping[productId as keyof typeof variantImageMapping];
+          setCurrentImage(images[availableVariants[0] as keyof typeof images] || foundProduct.image);
+        } else {
+          setCurrentImage(foundProduct.image);
+        }
+      }
     }
     
     // Scroll to top on new product
     window.scrollTo(0, 0);
-  }, [productId]);
+  }, [productId, availableVariants]);
+  
+  // Handle variant change
+  const handleVariantChange = (variant: string) => {
+    setSelectedVariant(variant);
+    
+    // Update image if this product has variant images
+    if (productId && variantImageMapping[productId as keyof typeof variantImageMapping]) {
+      const images = variantImageMapping[productId as keyof typeof variantImageMapping];
+      setCurrentImage(images[variant as keyof typeof images] || (product?.image || ""));
+    }
+  };
   
   if (!product) {
     return (
@@ -76,11 +112,15 @@ const ProductDetail: React.FC = () => {
         </Link>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <ProductImageSection image={product.image} name={product.name} />
+          <ProductImageSection image={currentImage || product.image} name={product.name} />
           
           <div>
             <ProductInfoSection product={product} />
-            <ProductVariantForm product={product} availableVariants={availableVariants} />
+            <ProductVariantForm 
+              product={product} 
+              availableVariants={availableVariants} 
+              onVariantChange={handleVariantChange} 
+            />
             <ProductSpecifications />
           </div>
         </div>
