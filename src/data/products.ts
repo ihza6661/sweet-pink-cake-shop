@@ -98,5 +98,13 @@ export const allProducts: Product[] = [
     price: 36.99,
     image: "/placeholder.svg",
     category: "Dietary"
+  },
+  {
+    id: 13,
+    name: "Lapis-Signature",
+    description: "A combination of popular local delicacy, made with the highest quality ingredients, creating a dense and tasty cake for everyone to enjoy.",
+    price: 36.99,
+    image: "/products/Lapis-Signature.webp",
+    category: "Traditional Cake"
   }
 ];
