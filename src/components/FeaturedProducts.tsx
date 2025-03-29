@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ProductCard } from '@/components/ProductCard';
 import { Product } from '@/models/Product';
@@ -7,9 +8,13 @@ import { motion } from 'framer-motion';
 
 interface FeaturedProductsProps {
   products: Product[];
+  limit?: number;
 }
 
-export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) => {
+export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products, limit = 4 }) => {
+  // Take only the specified number of products
+  const displayProducts = products.slice(0, limit);
+  
   return (
     <section className="section-padding bg-white dark:bg-gray-950">
       <div className="container mx-auto">
@@ -32,7 +37,7 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
         </motion.div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {products.map((product, index) => (
+          {displayProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>

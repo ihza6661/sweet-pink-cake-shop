@@ -1,46 +1,15 @@
-
 import React from 'react';
 import { Hero } from '@/components/Hero';
 import { FeaturedProducts } from '@/components/FeaturedProducts';
 import { Product } from '@/models/Product';
 import { motion } from 'framer-motion';
 import { Cake, Gift, Clock, Award } from 'lucide-react';
+import { allProducts } from '@/data/products';
 
-// Mock data for featured products
-const featuredProducts: Product[] = [
-  {
-    id: 1,
-    name: "Strawberry Delight",
-    description: "Light vanilla sponge with fresh strawberry filling and cream cheese frosting.",
-    price: 32.99,
-    image: "/placeholder.svg",
-    category: "Bestseller"
-  },
-  {
-    id: 2,
-    name: "Chocolate Dream",
-    description: "Rich chocolate cake with ganache filling and chocolate buttercream.",
-    price: 34.99,
-    image: "/placeholder.svg",
-    category: "Bestseller"
-  },
-  {
-    id: 3,
-    name: "Wedding Elegance",
-    description: "Three-tier vanilla cake with buttercream and edible flowers.",
-    price: 89.99,
-    image: "/placeholder.svg",
-    category: "Wedding"
-  },
-  {
-    id: 4,
-    name: "Birthday Funfetti",
-    description: "Colorful vanilla cake with sprinkles and vanilla buttercream.",
-    price: 28.99,
-    image: "/placeholder.svg",
-    category: "Birthday"
-  }
-];
+// We'll filter to get products with Bestseller or Popular categories to show as featured
+const featuredProducts = allProducts.filter(product => 
+  product.category === "Bestseller" || product.category === "Popular"
+);
 
 const features = [
   {
@@ -88,7 +57,7 @@ const Index: React.FC = () => {
     <div className="page-transition">
       <Hero />
       
-      <FeaturedProducts products={featuredProducts} />
+      <FeaturedProducts products={featuredProducts} limit={4} />
       
       {/* Features Section */}
       <section className="section-padding bg-pink-50 dark:bg-gray-900">
