@@ -13,10 +13,10 @@ export const allProducts: Product[] = [
   },
   {
     id: 2,
-    name: "Chocolate Dream",
-    description: "Rich chocolate cake with ganache filling and chocolate buttercream.",
-    price: 34.99,
-    image: "/placeholder.svg",
+    name: "Red Velvet",
+    description: "Our Red Velvet cake is a moist and decadent dessert that's perfect for any occasion. The rich, velvety texture of the cake is complemented by the creamy, tangy sweetness of the cream cheese frosting.",
+    price: 40.99,
+    image: "/products/Red-Velvet-Regular-Round.webp",
     category: "Bestseller"
   },
   {
