@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '@/context/CartContext';
@@ -24,6 +23,7 @@ import {
   FormMessage 
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
+import { allProducts } from '@/data/products';
 
 // Types for the form
 interface ProductOrderForm {
@@ -36,72 +36,16 @@ const productVariants = {
   "1": ["Classic", "Vegan", "Gluten-Free", "Sugar-Free"],
   "2": ["Dark Chocolate", "Milk Chocolate", "White Chocolate", "Triple Chocolate"],
   "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
-  "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"]
-};
-
-// Mock data for a single product
-const mockProducts: Record<string, Product> = {
-  "1": {
-    id: 1,
-    name: "Strawberry Delight",
-    description: "Our Strawberry Delight cake features light vanilla sponge layers generously filled with fresh strawberry compote and frosted with silky cream cheese frosting. Each cake is decorated with fresh strawberries and edible flowers for a beautiful presentation. Perfect for birthdays, anniversaries, or any special occasion where you want to make a statement.",
-    price: 32.99,
-    image: "/placeholder.svg",
-    category: "Bestseller"
-  },
-  "2": {
-    id: 2,
-    name: "Chocolate Dream",
-    description: "Indulge in our decadent Chocolate Dream cake, made with three layers of moist chocolate cake filled with rich chocolate ganache and frosted with smooth chocolate buttercream. This cake is a chocolate lover's dream come true, offering intense chocolate flavor in every bite. Decorated with chocolate shavings and chocolate drip for an elegant finish.",
-    price: 34.99,
-    image: "/placeholder.svg",
-    category: "Bestseller"
-  },
-  "3": {
-    id: 3,
-    name: "Wedding Elegance",
-    description: "Our Wedding Elegance cake is designed to make your special day even more memorable. This three-tier masterpiece features vanilla cake layers with your choice of filling, covered in smooth buttercream and decorated with elegant piping, edible flowers, and subtle pearl accents. Each tier can be customized with different flavors to please all your guests.",
-    price: 89.99,
-    image: "/placeholder.svg",
-    category: "Wedding"
-  },
-  "4": {
-    id: 4,
-    name: "Birthday Funfetti",
-    description: "Celebrate another trip around the sun with our colorful Birthday Funfetti cake. This festive cake features vanilla cake loaded with rainbow sprinkles, filled and frosted with vanilla buttercream, and decorated with more sprinkles and custom birthday messaging. A perfect centerpiece for any birthday celebration that's sure to bring smiles all around.",
-    price: 28.99,
-    image: "/placeholder.svg",
-    category: "Birthday"
-  }
+  "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"],
+  "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"]
 };
 
 // Mock data for related products
-const relatedProducts: Product[] = [
-  {
-    id: 5,
-    name: "Red Velvet",
-    description: "Classic red velvet cake with cream cheese frosting.",
-    price: 30.99,
-    image: "/placeholder.svg",
-    category: "Popular"
-  },
-  {
-    id: 6,
-    name: "Lemon Blueberry",
-    description: "Tangy lemon cake with blueberry compote and lemon buttercream.",
-    price: 32.99,
-    image: "/placeholder.svg",
-    category: "Seasonal"
-  },
-  {
-    id: 7,
-    name: "Carrot Cake",
-    description: "Spiced carrot cake with walnuts and cream cheese frosting.",
-    price: 29.99,
-    image: "/placeholder.svg",
-    category: "Popular"
-  }
-];
+const getRelatedProducts = (currentProductId: number): Product[] => {
+  return allProducts
+    .filter(product => product.id !== currentProductId)
+    .slice(0, 3);
+};
 
 const ProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -124,9 +68,10 @@ const ProductDetail: React.FC = () => {
     : [];
   
   useEffect(() => {
-    // In a real app, this would be an API call
-    if (productId && mockProducts[productId]) {
-      setProduct(mockProducts[productId]);
+    // Find product from allProducts
+    if (productId) {
+      const foundProduct = allProducts.find(p => p.id === Number(productId));
+      setProduct(foundProduct || null);
       
       // Reset the form when product changes
       form.reset({
@@ -360,7 +305,7 @@ const ProductDetail: React.FC = () => {
           <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white mb-8">
             You Might Also Like
           </h2>
-          <FeaturedProducts products={relatedProducts} />
+          <FeaturedProducts products={getRelatedProducts(product?.id || 0)} />
         </div>
       </div>
     </div>
