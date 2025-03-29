@@ -13,7 +13,7 @@ import { ProductRelatedSection } from '@/components/product/ProductRelatedSectio
 
 // Mock data for product variants
 const productVariants = {
-  "1": ["Classic", "Vegan", "Gluten-Free", "Sugar-Free"],
+  "1": ["Regular Round", "Large Rectangle", "Superior Rectangle", "Small Rectangle"],
   "2": ["Dark Chocolate", "Milk Chocolate", "White Chocolate", "Triple Chocolate"],
   "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
   "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"],
