@@ -106,5 +106,13 @@ export const allProducts: Product[] = [
     price: 36.99,
     image: "/products/Lapis-Signature.webp",
     category: "Traditional Cake"
+  },
+  {
+    id: 14,
+    name: "Chocolate Truffle",
+    description: "Decadent chocolate cake with layers of rich truffle ganache and chocolate shavings, perfect for chocolate lovers.",
+    price: 38.99,
+    image: "/placeholder.svg",
+    category: "Bestseller"
   }
 ];

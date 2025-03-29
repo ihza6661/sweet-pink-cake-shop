@@ -17,7 +17,8 @@ const productVariants = {
   "2": ["Regular Round", "Regular Square", "Small Rectangle"],
   "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
   "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"],
-  "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"]
+  "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"],
+  "14": ["Regular Size", "Large Size", "Mini Size", "Gift Box"]
 };
 
 // Variant image mapping for product ID 1
