@@ -1,40 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/models/Product';
 import { allProducts } from '@/data/products';
+import { productVariants, variantImageMapping } from '@/data/productVariants';
 import { ProductImageSection } from '@/components/product/ProductImageSection';
 import { ProductInfoSection } from '@/components/product/ProductInfoSection';
 import { ProductVariantForm } from '@/components/product/ProductVariantForm';
 import { ProductSpecifications } from '@/components/product/ProductSpecifications';
 import { ProductRelatedSection } from '@/components/product/ProductRelatedSection';
-
-// Mock data for product variants
-const productVariants = {
-  "1": ["Regular Round", "Large Rectangle", "Superior Rectangle", "Small Rectangle"],
-  "2": ["Regular Round", "Regular Square", "Small Rectangle"],
-  "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
-  "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"],
-  "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"],
-  "14": ["Regular Size", "Large Size", "Mini Size", "Gift Box"]
-};
-
-// Variant image mapping for product ID 1
-const variantImageMapping = {
-  "1": {
-    "Regular Round": "/products/Strawberry-Cheesecake.jpg",
-    "Large Rectangle": "/products/Strawberry-Cheesecake-Large.webp",
-    "Superior Rectangle": "/products/Strawberry-Cheesecake-Superior-Rectangle.webp",
-    "Small Rectangle": "/products/Strawberry-Cheesecake-Small.webp"
-  },
-  "2": {
-    "Regular Round": "/products/Red-Velvet-Regular-Round.webp",
-    "Regular Square": "/products/Red-Velvet-Regular-Square.webp",
-    "Small Rectangle": "/products/Red-Velvet-Small-Rectangle.webp"
-  },
-};
 
 // Get related products
 const getRelatedProducts = (currentProductId: number): Product[] => {
