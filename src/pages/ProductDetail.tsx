@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -26,10 +26,12 @@ const ProductDetail: React.FC = () => {
   const [currentImage, setCurrentImage] = useState<string>("");
   const [currentPrice, setCurrentPrice] = useState<number | undefined>(undefined);
   
-  // Get available variants based on the product ID
-  const availableVariants = productId && productVariants[productId] 
-    ? productVariants[productId] 
-    : [];
+  // Memoize the available variants to avoid recreating this array on every render
+  const availableVariants = useMemo(() => {
+    return productId && productVariants[productId] 
+      ? productVariants[productId] 
+      : [];
+  }, [productId]);
   
   useEffect(() => {
     // Find product from allProducts
