@@ -31,12 +31,14 @@ interface ProductOrderForm {
 interface ProductVariantFormProps {
   product: Product;
   availableVariants: string[];
+  currentPrice?: number;
   onVariantChange?: (variant: string) => void;
 }
 
 export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({ 
   product, 
   availableVariants,
+  currentPrice,
   onVariantChange
 }) => {
   const [quantity, setQuantity] = useState(1);
@@ -69,7 +71,14 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
   
   const handleAddToCart = () => {
     const formValues = form.getValues();
-    addToCart(product, quantity, formValues.variant, formValues.notes);
+    // Use the current variant price if available
+    const priceToUse = currentPrice !== undefined ? currentPrice : product.price;
+    // Create a modified product with the current price
+    const productWithVariantPrice = {
+      ...product,
+      price: priceToUse
+    };
+    addToCart(productWithVariantPrice, quantity, formValues.variant, formValues.notes);
   };
   
   const handleVariantChange = (variant: string) => {
