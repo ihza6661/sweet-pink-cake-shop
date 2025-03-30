@@ -15,6 +15,11 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { addToCart } = useCart();
   
+  // Get the primary category to display (first one if it's an array)
+  const displayCategory = Array.isArray(product.category) 
+    ? product.category[0] 
+    : product.category;
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -38,7 +43,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{product.description}</p>
           <div className="mt-2 flex items-center justify-between">
             <span className="text-lg font-medium text-pink-600 dark:text-pink-400">${product.price.toFixed(2)}</span>
-            <span className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">{product.category}</span>
+            <span className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-medium">{displayCategory}</span>
           </div>
         </div>
       </Link>
