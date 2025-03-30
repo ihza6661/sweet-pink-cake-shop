@@ -10,40 +10,7 @@ import { ProductInfoSection } from '@/components/product/ProductInfoSection';
 import { ProductVariantForm } from '@/components/product/ProductVariantForm';
 import { ProductSpecifications } from '@/components/product/ProductSpecifications';
 import { ProductRelatedSection } from '@/components/product/ProductRelatedSection';
-
-// Mock data for product variants
-const productVariants = {
-  "1": ["Regular Round", "Large Rectangle", "Superior Rectangle", "Small Rectangle"],
-  "2": ["Regular Round", "Regular Square", "Small Rectangle"],
-  "3": ["Regular Round", "Large Rectangle", "Small Rectangle"],
-  "4": ["Regular", "Large Rectangle", ""],
-  "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"]
-};
-
-// Variant image mapping for product ID 1
-const variantImageMapping = {
-  "1": {
-    "Regular Round": "/products/Strawberry-Cheesecake.jpg",
-    "Large Rectangle": "/products/Strawberry-Cheesecake-Large.webp",
-    "Superior Rectangle": "/products/Strawberry-Cheesecake-Superior-Rectangle.webp",
-    "Small Rectangle": "/products/Strawberry-Cheesecake-Small.webp"
-  },
-  "2": {
-    "Regular Round": "/products/Red-Velvet-Regular-Round.webp",
-    "Regular Square": "/products/Red-Velvet-Regular-Square.webp",
-    "Small Rectangle": "/products/Red-Velvet-Small-Rectangle.webp"
-  },
-  "3": {
-    "Regular Round": "/products/Tiramisu-Regular-Round.webp",
-    "Large Rectangle": "/products/Tiramisu-Large-Rectangle.webp",
-    "Small Rectangle": "/products/Tiramisu-Small-Rectangle.webp"
-  },
-  "4": {
-    "Regular Round": "/products/Blueberry-Cheesecake-Regular-Round.webp",
-    "Large Rectangle": "/products/Blueberry-Cheesecake-Large-Rectangle.webp",
-    "Superior Rectangle": "/products/Blueberry-Cheesecake-Superior-Rectangle.webp"
-  },
-};
+import { productVariants, variantImageMapping, variantPriceMapping } from '@/data/productVariants';
 
 // Get related products
 const getRelatedProducts = (currentProductId: number): Product[] => {
@@ -57,10 +24,11 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [currentImage, setCurrentImage] = useState<string>("");
+  const [currentPrice, setCurrentPrice] = useState<number | undefined>(undefined);
   
   // Get available variants based on the product ID
-  const availableVariants = productId && productVariants[productId as keyof typeof productVariants] 
-    ? productVariants[productId as keyof typeof productVariants] 
+  const availableVariants = productId && productVariants[productId] 
+    ? productVariants[productId] 
     : [];
   
   useEffect(() => {
@@ -74,11 +42,19 @@ const ProductDetail: React.FC = () => {
         setSelectedVariant(availableVariants[0]);
         
         // Set initial image - if variant images exist for this product, use the first variant's image
-        if (variantImageMapping[productId as keyof typeof variantImageMapping]) {
-          const images = variantImageMapping[productId as keyof typeof variantImageMapping];
-          setCurrentImage(images[availableVariants[0] as keyof typeof images] || foundProduct.image);
+        if (variantImageMapping[productId]) {
+          const images = variantImageMapping[productId];
+          setCurrentImage(images[availableVariants[0]] || foundProduct.image);
         } else {
           setCurrentImage(foundProduct.image);
+        }
+        
+        // Set initial price - if variant prices exist for this product, use the first variant's price
+        if (variantPriceMapping[productId]) {
+          const prices = variantPriceMapping[productId];
+          setCurrentPrice(prices[availableVariants[0]]);
+        } else {
+          setCurrentPrice(foundProduct.price);
         }
       }
     }
@@ -92,9 +68,15 @@ const ProductDetail: React.FC = () => {
     setSelectedVariant(variant);
     
     // Update image if this product has variant images
-    if (productId && variantImageMapping[productId as keyof typeof variantImageMapping]) {
-      const images = variantImageMapping[productId as keyof typeof variantImageMapping];
-      setCurrentImage(images[variant as keyof typeof images] || (product?.image || ""));
+    if (productId && variantImageMapping[productId]) {
+      const images = variantImageMapping[productId];
+      setCurrentImage(images[variant] || (product?.image || ""));
+    }
+    
+    // Update price if this product has variant prices
+    if (productId && variantPriceMapping[productId]) {
+      const prices = variantPriceMapping[productId];
+      setCurrentPrice(prices[variant]);
     }
   };
   
@@ -130,11 +112,12 @@ const ProductDetail: React.FC = () => {
           <ProductImageSection image={currentImage || product.image} name={product.name} />
           
           <div>
-            <ProductInfoSection product={product} />
+            <ProductInfoSection product={product} currentPrice={currentPrice} />
             <ProductVariantForm 
               product={product} 
               availableVariants={availableVariants} 
-              onVariantChange={handleVariantChange} 
+              onVariantChange={handleVariantChange}
+              currentPrice={currentPrice}
             />
             <ProductSpecifications />
           </div>
