@@ -37,20 +37,12 @@ export const allProducts: Product[] = [
   },
   {
     id: 5,
-    name: "Lapis-Signature",
+    name: "Lapis Signature",
     description: "A combination of popular local delicacy, made with the highest quality ingredients, creating a dense and tasty cake for everyone to enjoy.",
     price: 40.99,
     image: "/products/Lapis-Signature.webp",
     category: "Traditional Cake"
   },
-  {
-    id: 14,
-    name: "Chocolate Truffle",
-    description: "Decadent chocolate cake with layers of rich truffle ganache and chocolate shavings, perfect for chocolate lovers.",
-    price: 38.99,
-    image: "/placeholder.svg",
-    category: "Bestseller"
-  }
   // {
   //   id: 5,
   //   name: "Red Velvet",
