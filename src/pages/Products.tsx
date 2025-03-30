@@ -52,9 +52,10 @@ const Products: React.FC = () => {
     
     // Filter by category
     if (selectedCategory && selectedCategory !== 'All') {
-      filtered = filtered.filter(product => 
-        product.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+      filtered = filtered.filter(product => {
+        const categories = Array.isArray(product.category) ? product.category : [product.category];
+        return categories.some(cat => cat.toLowerCase() === selectedCategory.toLowerCase());
+      });
     }
     
     // Filter by price range

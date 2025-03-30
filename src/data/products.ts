@@ -1,4 +1,3 @@
-
 import { Product } from '@/models/Product';
 
 // Products data
@@ -41,7 +40,7 @@ export const allProducts: Product[] = [
     description: "A combination of popular local delicacy, made with the highest quality ingredients, creating a dense and tasty cake for everyone to enjoy.",
     price: 40.99,
     image: "/products/Lapis-Signature.webp",
-    category: "Traditional Cake"
+    category: ["Traditional Cake", "Bestseller"]
   },
   // {
   //   id: 5,

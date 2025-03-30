@@ -7,9 +7,10 @@ import { Cake, Gift, Clock, Award } from 'lucide-react';
 import { allProducts } from '@/data/products';
 
 // We'll filter to get products with Bestseller or Popular categories to show as featured
-const featuredProducts = allProducts.filter(product => 
-  product.category === "Bestseller" || product.category === "Popular"
-);
+const featuredProducts = allProducts.filter(product => {
+  const categories = Array.isArray(product.category) ? product.category : [product.category];
+  return categories.includes("Bestseller") || categories.includes("Popular");
+});
 
 const features = [
   {
