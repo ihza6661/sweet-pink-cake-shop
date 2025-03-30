@@ -5,9 +5,16 @@ import { Product } from '@/models/Product';
 
 interface ProductInfoSectionProps {
   product: Product;
+  currentPrice?: number;
 }
 
-export const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product }) => {
+export const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ 
+  product,
+  currentPrice
+}) => {
+  // Use the variant price if available, otherwise fall back to the product's base price
+  const displayPrice = currentPrice !== undefined ? currentPrice : product.price;
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,7 +28,7 @@ export const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({ product 
         {product.name}
       </h1>
       <p className="text-2xl font-medium text-pink-600 dark:text-pink-400 mb-6">
-        ${product.price.toFixed(2)}
+        ${displayPrice.toFixed(2)}
       </p>
       <div className="mb-8">
         <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-2">

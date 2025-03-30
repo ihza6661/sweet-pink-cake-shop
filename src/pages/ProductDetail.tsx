@@ -1,10 +1,11 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/models/Product';
 import { allProducts } from '@/data/products';
-import { productVariants, variantImageMapping } from '@/data/productVariants';
+import { productVariants, variantImageMapping, variantPriceMapping } from '@/data/productVariants';
 import { ProductImageSection } from '@/components/product/ProductImageSection';
 import { ProductInfoSection } from '@/components/product/ProductInfoSection';
 import { ProductVariantForm } from '@/components/product/ProductVariantForm';
@@ -23,6 +24,7 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [currentImage, setCurrentImage] = useState<string>("");
+  const [currentPrice, setCurrentPrice] = useState<number>(0);
   
   // Get available variants based on the product ID
   const availableVariants = productId && productVariants[productId as keyof typeof productVariants] 
@@ -46,6 +48,14 @@ const ProductDetail: React.FC = () => {
         } else {
           setCurrentImage(foundProduct.image);
         }
+        
+        // Set initial price - if variant prices exist for this product, use the first variant's price
+        if (variantPriceMapping[productId as keyof typeof variantPriceMapping]) {
+          const prices = variantPriceMapping[productId as keyof typeof variantPriceMapping];
+          setCurrentPrice(prices[availableVariants[0] as keyof typeof prices] || foundProduct.price);
+        } else {
+          setCurrentPrice(foundProduct.price);
+        }
       }
     }
     
@@ -61,6 +71,12 @@ const ProductDetail: React.FC = () => {
     if (productId && variantImageMapping[productId as keyof typeof variantImageMapping]) {
       const images = variantImageMapping[productId as keyof typeof variantImageMapping];
       setCurrentImage(images[variant as keyof typeof images] || (product?.image || ""));
+    }
+    
+    // Update price if this product has variant prices
+    if (productId && variantPriceMapping[productId as keyof typeof variantPriceMapping]) {
+      const prices = variantPriceMapping[productId as keyof typeof variantPriceMapping];
+      setCurrentPrice(prices[variant as keyof typeof prices] || (product?.price || 0));
     }
   };
   
@@ -96,9 +112,10 @@ const ProductDetail: React.FC = () => {
           <ProductImageSection image={currentImage || product.image} name={product.name} />
           
           <div>
-            <ProductInfoSection product={product} />
+            <ProductInfoSection product={product} currentPrice={currentPrice} />
             <ProductVariantForm 
               product={product} 
+              currentPrice={currentPrice}
               availableVariants={availableVariants} 
               onVariantChange={handleVariantChange} 
             />
