@@ -15,8 +15,8 @@ import { ProductRelatedSection } from '@/components/product/ProductRelatedSectio
 const productVariants = {
   "1": ["Regular Round", "Large Rectangle", "Superior Rectangle", "Small Rectangle"],
   "2": ["Regular Round", "Regular Square", "Small Rectangle"],
-  "3": ["1 Tier", "2 Tier", "3 Tier", "4 Tier"],
-  "4": ["Regular", "Extra Sprinkles", "Gold Sprinkles", "Rainbow Layers"],
+  "3": ["Regular Round", "Large Rectangle", "Small Rectangle"],
+  "4": ["Regular", "Large Rectangle", "Superior Rectangle"],
   "13": ["Original", "Less Sweet", "Extra Sweet", "With Nuts"]
 };
 
@@ -32,6 +32,16 @@ const variantImageMapping = {
     "Regular Round": "/products/Red-Velvet-Regular-Round.webp",
     "Regular Square": "/products/Red-Velvet-Regular-Square.webp",
     "Small Rectangle": "/products/Red-Velvet-Small-Rectangle.webp"
+  },
+  "3": {
+    "Regular Round": "/products/Tiramisu-Regular-Round.webp",
+    "Large Rectangle": "/products/Tiramisu-Large-Rectangle.webp",
+    "Small Rectangle": "/products/Tiramisu-Small-Rectangle.webp"
+  },
+  "4": {
+    "Regular Round": "/products/Blueberry-Cheesecake-Regular-Round.webp",
+    "Large Rectangle": "/products/Blueberry-Cheesecake-Large-Rectangle.webp",
+    "Superior Rectangle": "/products/Blueberry-Cheesecake-Superior-Rectangle.webp"
   },
 };
 
