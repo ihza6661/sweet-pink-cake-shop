@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-gradient-to-b from-pink-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-gradient-to-b from-pink-200 to-white dark:from-gray-900 dark:to-gray-950">
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <motion.div 
@@ -22,7 +22,7 @@ export const Hero: React.FC = () => {
               Artisanal Cakes for <span className="text-pink-600 dark:text-pink-400">Special Moments</span>
             </h1>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto md:mx-0">
-            Nikmati kue buatan tangan kami yang dibuat dengan bahan-bahan premium. Sempurna untuk ulang tahun, pernikahan, dan semua perayaan Anda.
+            Enjoy our handmade cakes made with premium ingredients. Perfect for birthdays, weddings, and all your celebrations.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link to="/products">
@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/about">
-                <Button variant="outline" className="w-full sm:w-auto bg-gray-200 dark:bg-gray-800 dark:hover:text-gray-300">
+                <Button variant="outline" className="w-full sm:w-auto dark:text-gray-300 bg-gray-200 dark:bg-gray-800 dark:hover:text-gray-100">
                   Our Story
                 </Button>
               </Link>
@@ -46,7 +46,7 @@ export const Hero: React.FC = () => {
           >
             <div className="relative">
               <img 
-                src="/placeholder.svg" 
+                src="/hero-cake.avif" 
                 alt="Delicious cake" 
                 className="w-full h-auto rounded-2xl shadow-lg"
               />

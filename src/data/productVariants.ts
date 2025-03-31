@@ -5,6 +5,8 @@ export const productVariants: Record<string, string[]> = {
   "2": ["Regular Round", "Regular Square", "Small Rectangle"],
   "3": ["Regular Round", "Large Rectangle", "Small Rectangle"],
   "4": ["Regular Round", "Large Rectangle", "Superior Rectangle"],
+  // "5": ["Regular Round", "Large Rectangle", "Superior Rectangle"],
+  "6": ["Regular Round", "Large Rectangle", "Small Rectangle"],
 };
 
 // Variant image mapping for each product ID
@@ -30,7 +32,16 @@ export const variantImageMapping: Record<string, Record<string, string>> = {
     "Large Rectangle": "/products/Blueberry-Cheesecake-Large-Rectangle.webp",
     "Superior Rectangle": "/products/Blueberry-Cheesecake-Superior-Rectangle.webp",
   },
-};
+  // "5": {
+  //   "Regular Round": "/products/Blueberry-Cheesecake-Regular-Round.webp",
+  //   "Large Rectangle": "/products/Blueberry-Cheesecake-Large-Rectangle.webp",
+  //   "Superior Rectangle": "/products/Blueberry-Cheesecake-Superior-Rectangle.webp",
+  // },
+  "6": {
+    "Regular Round": "/products/Magnifique-Regular-Round.webp",
+    "Large Rectangle": "/products/Magnifique-Large-Rectangle.webp",
+    "Small Rectangle": "/products/Magnifique-Small-Rectangle.webp",
+  },};
 
 // Variant price mapping for each product ID
 export const variantPriceMapping: Record<string, Record<string, number>> = {
@@ -54,5 +65,15 @@ export const variantPriceMapping: Record<string, Record<string, number>> = {
     "Regular Round": 36.99,
     "Large Rectangle": 46.99,
     "Superior Rectangle": 56.99,
+  },
+//  "5": {
+//     "Regular Round": 36.99,
+//     "Large Rectangle": 46.99,
+//     "Superior Rectangle": 56.99,
+//   },
+ "6": {
+    "Regular Round": 36.99,
+    "Large Rectangle": 46.99,
+    "Small Rectangle": 26.99,
   },
 };

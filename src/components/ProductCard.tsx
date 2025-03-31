@@ -25,7 +25,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+      className="group relative bg-pink-50 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
     >
       <Link to={`/product/${product.id}`} className="block">
         <div className="aspect-square overflow-hidden">

@@ -14,6 +14,11 @@ export const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({
 }) => {
   // Use the variant price if available, otherwise fall back to the product's base price
   const displayPrice = currentPrice !== undefined ? currentPrice : product.price;
+
+    // Get the primary category to display (first one if it's an array)
+    const displayCategory = Array.isArray(product.category) 
+    ? product.category[0] 
+    : product.category;
   
   return (
     <motion.div
@@ -22,7 +27,7 @@ export const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider text-pink-600 uppercase bg-pink-100 dark:bg-pink-900 dark:text-pink-300 rounded-full">
-        {product.category}
+        {displayCategory}
       </span>
       <h1 className="text-3xl md:text-4xl font-serif font-medium text-gray-900 dark:text-white mb-4">
         {product.name}

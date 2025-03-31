@@ -16,7 +16,7 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products, li
   const displayProducts = products.slice(0, limit);
   
   return (
-    <section className="section-padding bg-white dark:bg-gray-950">
+    <section className="p-6 bg-white dark:bg-gray-950">
       <div className="container mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

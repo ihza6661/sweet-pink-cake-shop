@@ -106,7 +106,7 @@ export const ProductVariantForm: React.FC<ProductVariantFormProps> = ({
                     defaultValue={field.value || availableVariants[0]}
                   >
                     <FormControl>
-                      <SelectTrigger className="border-gray-300 dark:border-gray-700">
+                      <SelectTrigger className="border-gray-300 dark:border-gray-700 text-gray-500">
                         <SelectValue placeholder="Select a variant" />
                       </SelectTrigger>
                     </FormControl>

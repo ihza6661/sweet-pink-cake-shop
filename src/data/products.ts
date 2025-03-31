@@ -42,14 +42,14 @@ export const allProducts: Product[] = [
     image: "/products/Lapis-Signature.webp",
     category: ["Traditional Cake", "Bestseller"]
   },
-  // {
-  //   id: 5,
-  //   name: "Red Velvet",
-  //   description: "Classic red velvet cake with cream cheese frosting.",
-  //   price: 30.99,
-  //   image: "/placeholder.svg",
-  //   category: "Popular"
-  // },
+  {
+    id: 6,
+    name: "Magnifique",
+    description: "Magnifique is a luxurious chocolate treat that combines the richness of dark chocolate with the sweetness and natural flavor of premium dates. A perfect indulgence for those who appreciate the finer things in life.",
+    price: 50.99,
+    image: "/products/Magnifique-Regular-Round.webp",
+    category: ["Popular", "Whole Cake"]
+  },
   // {
   //   id: 6,
   //   name: "Lemon Blueberry",

@@ -18,7 +18,9 @@ const categories = [
   "Specialty",
   "Kids",
   "Dietary",
-  "Traditional Cake"
+  "Traditional Cake",
+  "Whole Cake",
+  "Cupcake",
 ];
 
 const Products: React.FC = () => {

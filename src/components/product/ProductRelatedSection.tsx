@@ -12,7 +12,7 @@ export const ProductRelatedSection: React.FC<ProductRelatedSectionProps> = ({
 }) => {
   return (
     <div className="mb-16">
-      <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white mb-8">
+      <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white text-center">
         You Might Also Like
       </h2>
       <FeaturedProducts products={relatedProducts} />
