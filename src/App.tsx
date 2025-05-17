@@ -9,6 +9,7 @@ import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import ScrollToTop from "./components/routing/ScrollToTop";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -33,6 +34,7 @@ const App = () => (
         <ThemeProvider>
           <AuthProvider>
             <CartProvider>
+              <ScrollToTop />
               <Toaster />
               <Sonner />
               <div className="flex flex-col min-h-screen">

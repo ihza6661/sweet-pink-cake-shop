@@ -61,8 +61,7 @@ const ProductDetail: React.FC = () => {
       }
     }
     
-    // Scroll to top on new product
-    window.scrollTo(0, 0);
+    // Remove the scroll to top since we now have a global ScrollToTop component
   }, [productId, availableVariants]);
   
   // Handle variant change
